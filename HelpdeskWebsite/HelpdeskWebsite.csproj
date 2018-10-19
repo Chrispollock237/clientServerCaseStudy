@@ -104,6 +104,7 @@
     <Content Include="img\helpdesk_support.png" />
     <Content Include="img\help_button.jpg" />
     <Content Include="img\imagesZTXB55H2.jpg" />
+    <Content Include="Scripts\employee.js" />
     <Content Include="Scripts\employeelookup.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />

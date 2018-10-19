@@ -18,7 +18,7 @@ namespace CaseStudyTest
         }
 
         [TestMethod]
-        public void StudentViewModelAddShouldReturnId()
+        public void EmployeeViewModelAddShouldReturnId()
         {
             EmployeeViewModel vm = new EmployeeViewModel();
             vm.Title = "Mr.";
@@ -32,7 +32,7 @@ namespace CaseStudyTest
         }
 
         [TestMethod]
-        public void StudentViewModelGetAllShouldReturnAtLeastOneVM()
+        public void EmployeeViewModelGetAllShouldReturnAtLeastOneVM()
         {
             EmployeeViewModel vm = new EmployeeViewModel();
             List<EmployeeViewModel> allStudentVms = vm.GetAll();
@@ -40,7 +40,7 @@ namespace CaseStudyTest
         }
 
         [TestMethod]
-        public void StudentViewModelGetByIdShouldPopulatePropertyFirstname()
+        public void EmployeeViewModelGetByIdShouldPopulatePropertyFirstname()
         {
             EmployeeViewModel vm = new EmployeeViewModel();
             vm.Lastname = "Pollock";
@@ -51,7 +51,7 @@ namespace CaseStudyTest
 
         [TestMethod]
 
-        public void StudentModelUpdateShouldReturnOkStatus()
+        public void EmployeeModelUpdateShouldReturnOkStatus()
         {
             EmployeeViewModel vm = new EmployeeViewModel();
             vm.Lastname = "Pollock";
@@ -62,7 +62,26 @@ namespace CaseStudyTest
         }
 
         [TestMethod]
-        public void StudentModelDeleteShouldReturnOne()
+        public void EmployeeViewModelUpdateTwiceShouldReturnNegativeTwo()
+        {
+            EmployeeViewModel vm1 = new EmployeeViewModel();
+            EmployeeViewModel vm2 = new EmployeeViewModel();
+            vm1.Lastname = "Pollock";
+            vm2.Lastname = "Pollock";
+            vm1.GetByLastname();
+            vm2.GetByLastname();
+            vm1.Email = (vm1.Email.IndexOf(".ca") > 0) ? "ts@abc.com" : "ts@abc.ca";
+            if(vm1.Update() == 1) // update works first time
+            {
+                vm2.Email = (vm2.Email.IndexOf(".ca") > 0) ? "ts@abc.com" : "ts@abc.ca";
+                Assert.IsTrue(vm2.Update() == -2); // -2 = stale
+            }
+            else
+                Assert.Fail();
+        }
+
+        [TestMethod]
+        public void EmployeeModelDeleteShouldReturnOne()
         {
             EmployeeViewModel vm = new EmployeeViewModel();
             vm.Lastname = "Pollock";

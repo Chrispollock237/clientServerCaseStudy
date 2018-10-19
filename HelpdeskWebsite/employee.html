@@ -38,8 +38,9 @@
             <div class="col-2"></div>
         </div>
     </div>
-    <div class="panel-body" style="top:75px;position:relative; margin-right:1%; text-decoration:none">
-        <a href="/employee.html#theModal" data-toggle="modal" data-target="#theModal">Lookup Employee</a>
+    <div class="justify-content-center align-items-center row mt-5 ml-1">
+        <div class="list-group col-10" id="employeeList">
+        </div>
     </div>
     <div class="modal fade text-center" data-backdrop="static" id="theModal">
         <div class="modal-dialog modal-lg">
@@ -51,29 +52,29 @@
                     <h1 class="modal-title text-center" id="sampleModalLabel">Employee Information</h1>
                 </div>
                 <div class="modal-body">
-                    <div class="row ml-1 ">
-                        <div class="col-3" style="font-weight:bold">Title:</div>
-                        <div class="col-2" id="title"></div>
-                        <div class="col-3 text-right" style="font-weight:bold">First:</div>
-                        <div class="col-4" id="firstname"></div>
+                    <div class="row">
+                        <div class="col-4">Title:</div>
+                        <div class="col-8"><input type="text" placeholder="enter title" id="TextBoxTitle" class="form-control" /></div>
                     </div>
-                    <div class="row ml-1">
-                        <div class="col-3" style="font-weight:bold">Phone:</div>
-                        <div class="col-8" id="phone"></div>
+                    <div class="row">
+                        <div class="col-4">First:</div>
+                        <div class="col-8"><input type="text" placeholder="enter first name" id="TextBoxFirstname" class="form-control" /></div>
                     </div>
-                    <div class="row ml-1">
-                        <div class="col-3" style="font-weight:bold">Email:</div>
-                        <div class="col-8" id="email"></div>
+                    <div class="row">
+                        <div class="col-4">Surname:</div>
+                        <div class="col-8"><input type="text" placeholder="enter last name" id="TextBoxLastname" class="form-control" /></div>
                     </div>
-                    <div class="row ml-1">
-                        <div class="col-3" style="font-weight:bold">Last:</div>
-                        <div class="col-8">
-                            <input type="text" placeholder="enter last name" id="TextBoxLastname" class="form-control my-2" />
-                        </div>
+                    <div class="row">
+                        <div class="col-4">Phone#:</div>
+                        <div class="col-8"><input type="text" placeholder="enter phone number" id="TextBoxPhone" class="form-control" /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">Email:</div>
+                        <div class="col-8"><input type="text" placeholder="enter email" id="TextBoxEmail" class="form-control" /></div>
                     </div>
                 </div>
                 <div class="modal-footer d-block">
-                    <input type="button" value="Find Employee" id="getbutton" />
+                    <input type="button" value="Update" id="actionbutton" />
                     <div id="status" class="text-left mt-3 mb-2"></div>
                 </div>
             </div>
@@ -82,7 +83,7 @@
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
-    <script src="Scripts/employeelookup.js"></script>
+    <script src="Scripts/employee.js"></script>
 
 </body>
 </html>

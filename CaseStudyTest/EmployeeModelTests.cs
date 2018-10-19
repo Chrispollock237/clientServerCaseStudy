@@ -8,21 +8,21 @@ namespace CaseStudyTest
     [TestClass]
     public class EmployeeModelTests
     {
-        //[TestMethod]
-        //public void EmployeeModelGetbyEmailShouldReturnEmployee()
-        //{
-        //    EmployeeModel model = new EmployeeModel();
-        //    Employee someEmployee = model.GetByEmail("bs@abc.com");
-        //    Assert.IsNotNull(someEmployee);
-        //}
+        [TestMethod]
+        public void EmployeeModelGetbyEmailShouldReturnEmployee()
+        {
+            EmployeeModel model = new EmployeeModel();
+            Employee someEmployee = model.GetByEmail("bs@abc.com");
+            Assert.IsNotNull(someEmployee);
+        }
 
-        //[TestMethod]
-        //public void EmployeeModelGetbyEmailShouldNotReturnEmployee()
-        //{
-        //    EmployeeModel model = new EmployeeModel();
-        //    Employee someEmployee = model.GetByEmail("bs@abc.com");
-        //    Assert.IsNull(someEmployee);
-        //}
+        [TestMethod]
+        public void EmployeeModelGetbyEmailShouldNotReturnEmployee()
+        {
+            EmployeeModel model = new EmployeeModel();
+            Employee someEmployee = model.GetByEmail("bs@abq.com");
+            Assert.IsNull(someEmployee);
+        }
 
         [TestMethod]
         public void EmployeeModelModelGetAllShouldReturnList()

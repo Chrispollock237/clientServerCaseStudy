@@ -98,8 +98,8 @@ namespace HelpdeskViewModels
                 emp.LastName = Lastname;
                 emp.PhoneNo = Phoneno;
                 emp.Email = Email;
-                emp.DepartmentId = DepartmentId;
-                Id = _model.Add(emp);
+                emp.DepartmentId = 100; //DepartmentId;
+                this.Id = _model.Add(emp);
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace HelpdeskViewModels
 
         public int Update()
         {
-            int opStatus = -1;
+            UpdateStatus opStatus = UpdateStatus.Failed;
             try
             {
                 Employee emp = new Employee();
@@ -129,7 +129,7 @@ namespace HelpdeskViewModels
                     emp.StaffPicture = Convert.FromBase64String(StaffPicture64);
                 }
                 emp.Timer = Convert.FromBase64String(Timer);
-                opStatus = _model.Update(emp);
+                opStatus = _model.UpdateForConcurrency(emp);
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace HelpdeskViewModels
                      MethodBase.GetCurrentMethod().Name + " " + ex.Message);
                 throw ex;
             }
-            return opStatus;
+            return Convert.ToInt16(opStatus);
         }
 
         // Delete a Employee
