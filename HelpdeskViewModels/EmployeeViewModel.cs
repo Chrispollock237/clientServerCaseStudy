@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+    Name:           EmployeeViewModel.cs       
+    Author:         Chris Pollock
+    Date:           October 26, 2018
+    Purpose:        Contains a class that will contain the Employee Title, First name,
+                    Last name, Email, Phone number, Department Id, Department name, Picture
+                    and a Timer for concurrency related to a specific employee
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +16,9 @@ using System.Reflection;
 
 namespace HelpdeskViewModels
 {
+    // EmployeeViewModel holds the  Employee Title, First name,
+    // Last name, Email, Phone number, Department Id, Department name, Picture
+    // and a Timer values
     public class EmployeeViewModel
     {
         private EmployeeModel _model;
@@ -20,19 +31,21 @@ namespace HelpdeskViewModels
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public int Id { get; set; }
+        public bool? IsTech { get; set; }
         public string StaffPicture64 { get; set; }
 
-        //constructor
+        // Constructor to create a new EmployeeModel object
         public EmployeeViewModel()
         {
             _model = new EmployeeModel();
         }
 
-        //find employee using Lastname property
+        // Get an employee using the Lastname property
         public void GetByLastname()
         {
             try
             {
+                // New Employee object that will be created with the Lastname
                 Employee emp = _model.GetByLastname(Lastname);
                 Title = emp.Title;
                 Firstname = emp.FirstName;
@@ -41,6 +54,7 @@ namespace HelpdeskViewModels
                 Email = emp.Email;
                 Id = emp.Id;
                 DepartmentId = emp.DepartmentId;
+                IsTech = emp.IsTech;
                 if (emp.StaffPicture != null)
                 {
                     StaffPicture64 = Convert.ToBase64String(emp.StaffPicture);
@@ -55,13 +69,20 @@ namespace HelpdeskViewModels
                 throw ex;
             }
         }
-        // Retrieve all the Employees
+
+        // Retrieve all the EmployeeViewModel objects and add them to a List
         public List<EmployeeViewModel> GetAll()
         {
+            // Create a list to hold the EmployeeViewModel objects
             List<EmployeeViewModel> allVms = new List<EmployeeViewModel>();
             try
             {
+                // Create the List to hold the Employee objects. Uses the GetAll()
+                // from the EmployeeModel class to populate this List
                 List<Employee> allEmployees = _model.GetAll();
+
+                // For each Employee in the allEmployees List create a view model for them and 
+                // then add them to the List of Employee objects
                 foreach (Employee emp in allEmployees)
                 {
                     EmployeeViewModel empVm = new EmployeeViewModel();
@@ -73,6 +94,11 @@ namespace HelpdeskViewModels
                     empVm.Id = emp.Id;
                     empVm.DepartmentId = emp.DepartmentId;
                     empVm.DepartmentName = emp.Department.DepartmentName;
+                    empVm.IsTech = emp.IsTech;
+                    if (emp.StaffPicture != null)
+                    {
+                        empVm.StaffPicture64 = Convert.ToBase64String(emp.StaffPicture);
+                    }
                     empVm.Timer = Convert.ToBase64String(emp.Timer);
                     allVms.Add(empVm);
                 }
@@ -83,23 +109,27 @@ namespace HelpdeskViewModels
                     MethodBase.GetCurrentMethod().Name + " " + ex.Message);
                 throw ex;
             }
+
+            // Return the List of EmployeeViewModel objects 
             return allVms;
         }
 
-        //Add Employee
+        //Add Employee function
         public void Add()
         {
             Id = -1;
             try
             {
+                // Create a new Employee object and add the properties
+                // from the object that has called the Add() function
                 Employee emp = new Employee();
                 emp.Title = Title;
                 emp.FirstName = Firstname;
                 emp.LastName = Lastname;
                 emp.PhoneNo = Phoneno;
                 emp.Email = Email;
-                emp.DepartmentId = 100; //DepartmentId;
-                this.Id = _model.Add(emp);
+                emp.DepartmentId = DepartmentId;
+                Id = _model.Add(emp);
             }
             catch (Exception ex)
             {
@@ -109,13 +139,16 @@ namespace HelpdeskViewModels
             }
         }
 
-        // update a Employee
-
+        // Update an Employee
         public int Update()
         {
+            // UpdatesStatus is set to failed initally until we can check 
+            // for data concurrency to make sure the data is not stale
             UpdateStatus opStatus = UpdateStatus.Failed;
             try
             {
+                // Create a new Employee object and add the properties
+                //  from the object that has called the Update() function
                 Employee emp = new Employee();
                 emp.Title = Title;
                 emp.FirstName = Firstname;
@@ -129,6 +162,9 @@ namespace HelpdeskViewModels
                     emp.StaffPicture = Convert.FromBase64String(StaffPicture64);
                 }
                 emp.Timer = Convert.FromBase64String(Timer);
+
+                // This is where we check for the data concurrency to make sure that data 
+                // is not stale
                 opStatus = _model.UpdateForConcurrency(emp);
             }
             catch (Exception ex)
@@ -141,13 +177,18 @@ namespace HelpdeskViewModels
         }
 
         // Delete a Employee
-
         public int Delete()
         {
+            // Sets the number of Employees deleted 
+            // None of been deleted until we try and actually remove them 
+            // from the database
             int EmployeesDeleted = -1;
 
             try
             {
+                // Trys to delete the Employee from the database
+                // The Id is past from the EmployeeController from the object
+                // that called the inital Delete function
                 EmployeesDeleted = _model.Delete(Id);
             }
             catch (Exception ex)
@@ -157,14 +198,17 @@ namespace HelpdeskViewModels
                 throw ex;
             }
 
+            // Returns the number of employees deleted
             return EmployeesDeleted;
         }
 
-        // find Employee using Is property
+        // Find Employee using Id property
         public void GetById()
         {
             try
             {
+                // Create Employee object to hold the data of the object
+                // calling the function
                 Employee emp = new Employee();
                 emp.Title = Title;
                 emp.FirstName = Firstname;

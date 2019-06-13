@@ -1,4 +1,10 @@
-﻿$(function () {
+﻿/*
+    Name:           employeelookup.js       
+    Author:         Chris Pollock
+    Date:           October 26, 2018
+    Purpose:        JavaScript loaded when the page is loaded to lookup an employee in the database
+ */
+$(function () {
 
     $('#getbutton').mouseup(async (e) => { // click event handler makes asynchronous fetch to server
 

@@ -7,7 +7,13 @@ namespace HelpdeskDAL
     using System.Data.Entity.Spatial;
 
     public partial class Employee : HelpdeskEntity
-    { 
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            Calls = new HashSet<Call>();
+            Calls1 = new HashSet<Call>();
+        }
 
         [StringLength(4)]
         public string Title { get; set; }
@@ -30,9 +36,15 @@ namespace HelpdeskDAL
 
         public byte[] StaffPicture { get; set; }
 
-        [Column(TypeName = "timestamp")]
-        [MaxLength(8)]
-        [Timestamp]
+        //[Column(TypeName = "timestamp")]
+        //[MaxLength(8)]
+        //[Timestamp]
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Call> Calls { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Call> Calls1 { get; set; }
 
         public virtual Department Department { get; set; }
     }

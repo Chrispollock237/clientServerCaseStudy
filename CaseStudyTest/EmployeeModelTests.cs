@@ -91,5 +91,13 @@ namespace CaseStudyTest
             int EmployeeDeleted = model.Delete(deleteEmployee.Id);
             Assert.IsTrue(EmployeeDeleted == 1);
         }
+
+        [TestMethod]
+        public void LoadPicsShouldReturnTrue()
+        {
+            DALUtil util = new DALUtil();
+            Assert.IsTrue(util.AddEmployeePicsToDb());
+        }
+
     }
 }

@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Case #2</title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/employee.css" rel="stylesheet" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body id="indexBody">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Case #2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/home.html">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/employee.html">Employee</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/call.html">Calls</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/report.html">Reports</a>
+                </li>
+            </ul>
+            <span class="float-right" style="color:azure">V 2.0  </span>
+        </div>
+        <div class="form-group mt-2 mr-2">
+            <input type="text" class="form-control" id="srch" placeholder="Search" style="margin-left: 5px;"/>
+        </div>
+    </nav>
+    <div class="helpImage">
+        <div class="row">
+            <div class="col-4"></div>
+            <img src="img/digitalworld.jpg" style="height:220px; margin-top: 1%" class="col-4" />
+            <div class="col-4"></div>
+        </div>
+    </div>
+    <div class="pageTitle">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-center" style="font-family:'Bauhaus 93';font-size:300%">Calls</div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-center" style="font-family:'Bauhaus 93';font-size:150%">V 2.0</div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <div class="justify-content-center align-items-center row mt-5 ml-1">
+        <div class="list-group col-10 justify-content-center" id="callList">
+        </div>
+    </div>
+    <form id="CallModalForm" name="CallModalForm" method="post" action="">
+        <div class="modal bg-transparent fade text-center" data-backdrop="static" id="theModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div id="modalHeader" class="modal-header d-block" style="">
+                        <!--<button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>-->
+                        <!--<h1 class="modal-title text-center" id="sampleModalLabel" style="color:gold;
+                        text-shadow: 3px 3px 3px #c0aa09; background-color:#0000CD">-->
+                            Call Information V 2.0
+                        <!--</h1>-->
+                    </div>
+                    <div class="modal-body" id="modalBody">
+                        <div class="mx-4 my-4">
+                            <div class="card" style="border-style:solid; border-width:thick; border-color:#0000FF">
+                                <div class="card-header bg-light text-center">
+                                    Call Information
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-4 text-right">Problem:</div>
+                                        <div class="col-8 text-left"><select id="problemDDL" name="problemDDL" class="form-control" ></select></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 text-right">Employee:</div>
+                                        <div class="col-8"><select id="employeeDDL" name="employeeDDL" class="form-control"></select></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 text-right">Technician:</div>
+                                        <div class="col-8"><select id="technicianDDL" name="technicianDDL" class="form-control"></select></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 text-right">Date Opened:</div>
+                                        <div class="col-8 text-left"><label id="labelDateOpened"></label><input type="hidden" id="dateOpened" name="dateOpened" class="form-control" /></div>
+                                    </div>
+                                    <div class="row" style="height:32px">
+                                        <div class="col-4 text-right">Date Closed:</div>
+                                        <div class="col-8 text-left"><label id="labelDateClosed"></label><input type="hidden" id="dateClosed" name="dateClosed" class="form-control" style="height:150%"/></div>
+                                    </div>
+                                    <div class="row" style="height:32px">
+                                        <div class="col-4 text-right">Close Call:</div>
+                                        <div class="col-8"><input type="checkbox" id="closeCall" name="closeCall" class="form-control" style="height: 25px; width: 25px; background-color: #0094ff"/></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 text-right">Notes:</div>
+                                        <div class="col-8 text-left"><textarea id="TextBoxNotes" name="TextBoxNotes" ></textarea></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light text-center">
+                                <input type="button" class="btn btn-outline-primary" value="Close" data-dismiss="modal" />
+                                <input type="button" class="btn " value="Update" data-backdrop="static" id="actionbutton" style="" />
+                                <input type="button" class="btn btn-outline-secondary" data-backdrop="static" data-toggle="confirmation" id="deletebutton" data-placement="right" value="Delete"
+                                       style="color: #32c71a; font-weight:bolder; background-color: gold" />
+                                <p></p>
+                                <div id="modalstatus" class="text-left mt-3 mb-2 text-center" style="color:gold; text-shadow: 2px 2px 2px black;"></div>                       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/jquery.validate.min.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/bootstrap-confirmation.min.js"></script>
+    <script src="Scripts/calls.js"></script>
+</body>
+</html>

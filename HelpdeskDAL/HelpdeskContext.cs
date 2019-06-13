@@ -12,12 +12,21 @@ namespace HelpdeskDAL
         {
         }
 
+        public virtual DbSet<Call> Calls { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Problem> Problems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Call>()
+                .Property(e => e.Notes)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Call>()
+                .Property(e => e.Timer)
+                .IsFixedLength();
+
             modelBuilder.Entity<Department>()
                 .Property(e => e.DepartmentName)
                 .IsUnicode(false);
@@ -55,6 +64,18 @@ namespace HelpdeskDAL
                 .Property(e => e.Timer)
                 .IsFixedLength();
 
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.Calls)
+                .WithRequired(e => e.Employee)
+                .HasForeignKey(e => e.EmployeeId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.Calls1)
+                .WithRequired(e => e.Employee1)
+                .HasForeignKey(e => e.TechId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Problem>()
                 .Property(e => e.Description)
                 .IsUnicode(false);
@@ -62,6 +83,11 @@ namespace HelpdeskDAL
             modelBuilder.Entity<Problem>()
                 .Property(e => e.Timer)
                 .IsFixedLength();
+
+            modelBuilder.Entity<Problem>()
+                .HasMany(e => e.Calls)
+                .WithRequired(e => e.Problem)
+                .WillCascadeOnDelete(false);
         }
     }
 }
